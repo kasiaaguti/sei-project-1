@@ -1,3 +1,66 @@
-body {
-  background-color: green;
+* {
+  box-sizing: border-box;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  /* background-image: url(https://images.theconversation.com/files/60944/original/gv3w7mmk-1412620171.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip); */
+  background-repeat: no-repeat;
+    background-size: cover;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+
+  }
+  .chrome {
+  position: relative;
+  background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 4px #f5f5f5;
+  font-size: 100px;
+  font-family: 'Titillium Web', sans-serif;
+  font-style: italic;
+  margin: 0;
+  line-height: 1;
+}
+
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.grid {
+  width: 300px;
+  height: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+
+div.grid-item {
+  width: calc(300px / 10);
+  height: calc(450px / 15);
+  border: 1px solid black;
+}
+
+div.grid-item.player {
+  background-color: red;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+
+ }
+
+}
+
+/* calc(420px / 10);
+height: calc(600px / 20); */
