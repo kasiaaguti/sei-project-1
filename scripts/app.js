@@ -55,18 +55,18 @@ function handleKeyDown(e) {
   let playerShouldMove = true
   switch(e.keyCode) {
     case 39:
-      if (tetromino.type === 'I') {
-        tetromino.position = tetromino.position.map(pos => pos + 1)
+      if (activeTetromino) {
+        activeTetromino.position = activeTetromino.position.map(pos => pos + 1)
       }
       break
     case 37:
-      if (tetromino.type === 'I') {
-        tetromino.position = tetromino.position.map(pos => pos - 1)
+      if (activeTetromino) {
+        activeTetromino.position = activeTetromino.position.map(pos => pos - 1)
       }
       break
     case 40:
-      if (tetromino.type === 'I') {
-        tetromino.position = tetromino.position.map(pos => pos + 10)
+      if (activeTetromino) {
+        activeTetromino.position = activeTetromino.position.map(pos => pos + 10)
       }
       break
     default:
@@ -77,16 +77,19 @@ function handleKeyDown(e) {
 
 
 function rotate(e) {
-  switch(e.keyCode) {
-    case 77:
-      if (tetromino.type === 'I') {
-        squares.forEach(square => square.classList.remove('player'))
-        tetromino.position
-        currentShapeHorizontal = false
-      }
-  }
-}
-
+	  switch(e.keyCode) {
+	    case 77:
+	      if (activeTetromino) {
+	        squares.forEach(square => square.classList.remove('player'))
+	        squares[playerIndex+2].classList.add('player')
+	        squares[playerIndex+12].classList.add('player')
+	        squares[playerIndex+22].classList.add('player')
+	        squares[playerIndex+32].classList.add('player')
+	        activeTetromino.position
+	        currentShapeHorizontal = false
+	      }
+	  }
+	}
 
 
 function init() {
