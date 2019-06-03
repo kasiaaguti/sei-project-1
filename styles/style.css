@@ -6,7 +6,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  /* background-image: url(https://images.theconversation.com/files/60944/original/gv3w7mmk-1412620171.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip); */
+  background-image: url(https://images.theconversation.com/files/60944/original/gv3w7mmk-1412620171.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip);
   background-repeat: no-repeat;
     background-size: cover;
 }
