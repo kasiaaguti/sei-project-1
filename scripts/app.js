@@ -12,8 +12,8 @@ let activeTetromino = {}
 
 const tetromino = [
   // {type: 'I', position: [3, 4, 5, 6], orientation: 0},
-  {type: 'J', position: [13, 14, 15, 25],orientation: 0}
-  // {type: 'L', position: [24, 14, 15, 16], orientation: 0},
+  {type: 'J', position: [13, 14, 15, 25],orientation: 0},
+  {type: 'L', position: [16, 15, 14, 24], orientation: 0},
   // {type: 'T', position: [4, 13, 14, 15], orientation: 0},
   // {type: 'S', position: [6, 5, 15, 14], orientation: 0},
   // {type: 'Z', position: [4, 5, 15, 16], orientation: 0},
@@ -24,7 +24,7 @@ const tetromino = [
 // rotation
 // J 90 {-9, +0, +9, -2)
 //   180 {+2, +0, -2, -22}
-//   360 {+11, 0, -9, -19 }
+//   360 {+11, 0, -9, -10 }
 //
 // L 90 {-10, -9, +0, +9}
 //   180 {-18, +2, +0, -2}
@@ -37,21 +37,50 @@ function rotate() {
   if (activeTetromino.orientation > 270) {
     activeTetromino.orientation = 0
   }
-  if (activeTetromino.type === 'J' && activeTetromino.orientation === 90) {
-    activeTetromino.position[0] = activeTetromino.position[0] - 9
-    activeTetromino.position[2] = activeTetromino.position[2] + 9
-    activeTetromino.position[3] = activeTetromino.position[3] - 2
+  if (activeTetromino.type === 'J') {
+    if (activeTetromino.orientation === 90) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.orientation === 180) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 0
+    } else if (activeTetromino.orientation === 270) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    }
+  } else if (activeTetromino.type === 'L') {
+    if (activeTetromino.type === 'L' && activeTetromino.orientation === 90) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 180) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 270) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 0
+    }
   }
 }
+
+
 
 
 const grid = document.querySelector('.grid')
 
 function generateTetromino (){
+  console.log('trying to generate')
   const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
   return tetromino[tetrominoNumber]
   // activeTetromino.positions.forEach(position => divIndex.push(position))
 }
+
+
 
 function movePlayer() {
   console.log(activeTetromino)
@@ -74,7 +103,7 @@ function handleKeyDown(e) {
       }
       break
     case 40:
-      if (activeTetromino.position.every(pos => pos + 10 < 199)) {
+      if (activeTetromino.position.every(pos => pos + 10 < 200)) {
         activeTetromino.position = activeTetromino.position.map(x => x + 10)
       }
       break
@@ -147,7 +176,7 @@ function init() {
 
 window.addEventListener('keydown', handleKeyDown)
 // window.addEventListener('keydown', rotate)
-
+setInterval(generateTetromino, 5000)
 
 
 window.addEventListener('DOMContentLoaded', init)
