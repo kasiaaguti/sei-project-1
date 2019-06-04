@@ -59,6 +59,14 @@ div.grid-item.player {
   display: inline-block;
 
  }
+.block {
+   background-color: blue;
+   background-repeat: no-repeat;
+   background-size: contain;
+   display: inline-block;
+
+  }
+
 
 }
 
