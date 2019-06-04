@@ -1,36 +1,24 @@
-//this is where the player starts
 
-//Math.floor(width * width / 100)
-console.log('does it work?')
 const height = 20
 const width = 10
+const limit = height * width
 const squares = []
 let divIndex = []
 let activeTetromino = {}
 
-
+const isTetronimoActive = false
+const drop = setInterval(automaticDrop, 1000)
 
 const tetromino = [
-  // {type: 'I', position: [3, 4, 5, 6], orientation: 0},
+  {type: 'I', position: [3, 4, 5, 6], orientation: 0},
   {type: 'J', position: [13, 14, 15, 25],orientation: 0},
   {type: 'L', position: [16, 15, 14, 24], orientation: 0},
-  // {type: 'T', position: [4, 13, 14, 15], orientation: 0},
-  // {type: 'S', position: [6, 5, 15, 14], orientation: 0},
-  // {type: 'Z', position: [4, 5, 15, 16], orientation: 0},
-  // {type: 'O', position: [4, 5, 14, 15], orientation: 0}
+  {type: 'T', position: [13, 14, 15, 4], orientation: 0},
+  {type: 'S', position: [6, 5, 15, 14], orientation: 0},
+  {type: 'Z', position: [4, 5, 15, 16], orientation: 0},
+  {type: 'O', position: [4, 5, 14, 15], orientation: 0}
 ]
 
-//
-// rotation
-// J 90 {-9, +0, +9, -2)
-//   180 {+2, +0, -2, -22}
-//   360 {+11, 0, -9, -10 }
-//
-// L 90 {-10, -9, +0, +9}
-//   180 {-18, +2, +0, -2}
-//   360 {+2, +11, +0, -9}
-//
-//
 
 function rotate() {
   activeTetromino.orientation += 90
@@ -68,26 +56,27 @@ function rotate() {
   }
 }
 
-
-
-
 const grid = document.querySelector('.grid')
 
+
 function generateTetromino (){
-  console.log('trying to generate')
+  console.log('generateTetromino')
   const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
-  return tetromino[tetrominoNumber]
+
+  const newTetronimo = tetromino[tetrominoNumber]
+  newTetronimo.isActive = true
+  console.log(newTetronimo)
+  return newTetronimo
   // activeTetromino.positions.forEach(position => divIndex.push(position))
 }
 
-
-
 function movePlayer() {
-  console.log(activeTetromino)
+  console.log('movePlayer', activeTetromino)
   // console.log('happening')
   squares.forEach(square => square.classList.remove('player'))
   activeTetromino.position.forEach(number => squares[number].classList.add('player'))
 }
+
 
 function handleKeyDown(e) {
   let playerShouldMove = true
@@ -103,9 +92,7 @@ function handleKeyDown(e) {
       }
       break
     case 40:
-      if (activeTetromino.position.every(pos => pos + 10 < 200)) {
-        activeTetromino.position = activeTetromino.position.map(x => x + 10)
-      }
+      moveDown()
       break
     case 82:
       rotate()
@@ -116,43 +103,12 @@ function handleKeyDown(e) {
   if (playerShouldMove) movePlayer()
 }
 
-
-// function rotate(e) {
-// 	switch(e.keyCode) {
-// 	  case 38:
-// 	    if (activeTetromino) {
-//
-//
-//       }
-//       break
-// 	}
-//    movePlayer()
-// }
-  //   // if (currentShapeHorizontal) {
-  //   //   squares[playerIndex].classList.add('player')
-  //   //   squares[1].classList.add('player')
-  //   //   squares[2].classList.add('player')
-  //   //   squares[playerIndex+3].classList.add('player')
-  //   // } else {
-  //   //   squares[playerIndex].classList.add('player')
-  //   //   squares[playerIndex+width*1].classList.add('player')
-  //   //   squares[playerIndex+width*2].classList.add('player')
-  //   //   squares[playerIndex+width*3].classList.add('player')
-  //   // }
-  // }
-// }
-
-
-
 function init() {
-
-  //  our code goes here
-
 
   // get hold of that parent grid div
   const grid = document.querySelector('.grid')
 
-
+  // setGrid()
   // used a for loop to fill my grid with induvidual squares, as many as the width times the width
   for (let i = 0 ; i < width * height; i++) {
     const square = document.createElement('div')
@@ -163,20 +119,55 @@ function init() {
     square.id = 'div' + i
   }
 
-  activeTetromino = generateTetromino()
+
+  // createNewTeronimo()
+  activeTetromino = new generateTetromino()
   // tetromino.position.forEach(number => squares[number].classList.add('player'))
+
+
+
   movePlayer()
+  drop
+
 }
 
+
+// createNewTeronimo() {
+//     giveID
 //
-// function runGame(){
-// const interval = setInterval(tic, 200)
-// runGame()
 // }
 
-window.addEventListener('keydown', handleKeyDown)
-// window.addEventListener('keydown', rotate)
-setInterval(generateTetromino, 5000)
+function moveDown() {
+  if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit)) {
+    activeTetromino.position = activeTetromino.position.map(x => x + 10)
+  } else {
+    activeTetromino.isActive = false
+    console.log('activeTetromino set to false')
+    return
+  }
 
+}
+
+function freezeTetronimo(t) {
+  clearInterval(drop)
+  t.position.forEach(number => squares[number].classList.add('freeze'))
+  t.position.forEach(number => squares[number].classList.remove('player'))
+
+  // createNewTeronimo
+}
+
+function automaticDrop() {
+  moveDown()
+  movePlayer()
+  if ( !activeTetromino.isActive ) {
+
+    freezeTetronimo(activeTetromino)
+  }
+}
+
+window.addEventListener('keydown', handleKeyDown)
+
+
+// setInterval(generateTetromino, 5000)
 
 window.addEventListener('DOMContentLoaded', init)

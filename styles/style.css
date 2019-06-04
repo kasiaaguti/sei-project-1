@@ -52,23 +52,20 @@ div.grid-item {
   border: 1px solid black;
 }
 
-div.grid-item.player {
+.player {
   background-color: red;
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
 
  }
-.block {
+.freeze {
    background-color: blue;
    background-repeat: no-repeat;
    background-size: contain;
    display: inline-block;
-
-  }
-
-
 }
+
 
 /* calc(420px / 10);
 height: calc(600px / 20); */
