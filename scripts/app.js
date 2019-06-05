@@ -6,9 +6,11 @@ const squares = []
 let divIndex = []
 let activeTetromino = {}
 // const isTetronimoActive = false
-const drop = setInterval(automaticDrop, 1000)
+const drop = setInterval(automaticDrop, 300)
 let square = document.querySelector('.grid-item')
 const blockedSquares = document.querySelectorAll('.freeze')
+const blocked = []
+let rows = []
 
 
 const tetromino = [
@@ -23,9 +25,9 @@ const tetromino = [
 
 function rotate() {
   activeTetromino.orientation += 90
-  if (activeTetromino.orientation > 270) {
-    activeTetromino.orientation = 0
-  }
+  // if (activeTetromino.orientation > 270) {
+  //   activeTetromino.orientation = 0
+  // }
   if (activeTetromino.type === 'J') {
     if (activeTetromino.orientation === 90) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
@@ -115,16 +117,22 @@ const grid = document.querySelector('.grid')
 //
 // }
 
+
+
+
+// const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
 function generateTetromino (){
-  console.log('generateTetromino')
   const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
+  console.log('generateTetromino')
+
 
   const newTetronimo = tetromino[tetrominoNumber]
+
   newTetronimo.isActive = true
   console.log(newTetronimo)
   return newTetronimo
-  // activeTetromino.positions.forEach(position => divIndex.push(position))
 }
+
 
 function movePlayer() {
   console.log('movePlayer', activeTetromino)
@@ -162,6 +170,8 @@ function handleKeyDown(e) {
 
 function init() {
 
+
+
   // get hold of that parent grid div
   const grid = document.querySelector('.grid')
 
@@ -177,11 +187,8 @@ function init() {
   }
 
 
-  // createNewTeronimo()
+
   activeTetromino = generateTetromino()
-  // tetromino.position.forEach(number => squares[number].classList.add('player'))
-
-
 
   movePlayer()
   drop
@@ -229,6 +236,66 @@ function isBlocked(number) {
 }
 
 
+function makeRows () {
+  for (let i = 0; i < height; i++) {
+    rows[i] = []
+    for (let j = 0; j < width; j++) {
+      rows[i].push( (i*width) + j )
+
+    }
+  }
+}
+makeRows()
+
+//
+/
+
+//
+function toClear()  {
+  for (let i = 0; i < rows.length;i++){
+    const value = rows[i];
+
+    for(j = 0; j <rows[i].length; j++){
+      var innerValue = rows[i][j]
+
+      console.log(rows[i][j] )
+
+
+    }
+}
+}
+
+toClear()
+
+
+
+
+
+// function clearLine () {
+//   for (let i = 200 i > 0 ; i--) {
+//     if () {
+//
+//       square.classList.remove('freeze')
+//
+//
+//     }
+//   }
+//
+//
+// }
+
+
+
+
+
+// function clearRow (number) {
+//   for (let i = 0; i <= width; i++) {
+//     return squares[number].classList.contains('freeze')
+//     if (activeTetromino.position.every(pos => isBlocked(pos) === true))
+//       t.position.forEach(number => squares[number].classList.remove('freeze'))
+//   }
+// }
+//
 
 
 

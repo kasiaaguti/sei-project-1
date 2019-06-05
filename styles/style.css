@@ -46,6 +46,13 @@ div.grid {
 
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 div.grid-item {
   width: calc(300px / 10);
   height: calc(450px / 15);
