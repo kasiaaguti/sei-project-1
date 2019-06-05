@@ -5,8 +5,7 @@ const limit = height * width
 const squares = []
 let divIndex = []
 let activeTetromino = {}
-
-const isTetronimoActive = false
+// const isTetronimoActive = false
 const drop = setInterval(automaticDrop, 1000)
 
 const tetromino = [
@@ -18,6 +17,21 @@ const tetromino = [
   {type: 'Z', position: [4, 5, 15, 16], orientation: 0},
   {type: 'O', position: [4, 5, 14, 15], orientation: 0}
 ]
+
+//
+// function Tetronimo(type, position, isActive, isFrozen) {
+//   this.type = // Math.floor(Math.random() * ;
+//   this.position = position;
+//   this.orienation = orientation;
+//   this.isActive = false;
+//   this.isFrozen = false;
+// }
+//
+// new Tetronimo()
+// const i = new Tetronimo ('I', [3, 4, 5, 6], 0)
+// const j = new Tetronimo ('J',  [13, 14, 15, 25], 0)
+
+
 
 
 function rotate() {
@@ -58,6 +72,9 @@ function rotate() {
 
 const grid = document.querySelector('.grid')
 
+// function generateNewTetronimo() {
+//
+// }
 
 function generateTetromino (){
   console.log('generateTetromino')
@@ -121,7 +138,7 @@ function init() {
 
 
   // createNewTeronimo()
-  activeTetromino = new generateTetromino()
+  activeTetromino = generateTetromino()
   // tetromino.position.forEach(number => squares[number].classList.add('player'))
 
 
@@ -133,12 +150,12 @@ function init() {
 
 
 // createNewTeronimo() {
-//     giveID
-//
+// giveID
+// generateTetromino.
 // }
-
+// }
 function moveDown() {
-  if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit)) {
+  if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit && !squares.freeze)) {
     activeTetromino.position = activeTetromino.position.map(x => x + 10)
   } else {
     activeTetromino.isActive = false
@@ -149,25 +166,29 @@ function moveDown() {
 }
 
 function freezeTetronimo(t) {
-  clearInterval(drop)
+  // clearInterval(drop)
   t.position.forEach(number => squares[number].classList.add('freeze'))
   t.position.forEach(number => squares[number].classList.remove('player'))
+  activeTetromino = generateTetromino()
+  console.log(activeTetromino)
 
-  // createNewTeronimo
+  // createNewTeronimo()
+
 }
 
 function automaticDrop() {
   moveDown()
   movePlayer()
   if ( !activeTetromino.isActive ) {
-
     freezeTetronimo(activeTetromino)
   }
 }
 
+
+
+
+
 window.addEventListener('keydown', handleKeyDown)
 
-
-// setInterval(generateTetromino, 5000)
 
 window.addEventListener('DOMContentLoaded', init)
