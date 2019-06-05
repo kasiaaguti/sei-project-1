@@ -6,17 +6,19 @@ const squares = []
 let divIndex = []
 let activeTetromino = {}
 // const isTetronimoActive = false
-const drop = setInterval(automaticDrop, 500)
+const drop = setInterval(automaticDrop, 1000)
 let square = document.querySelector('.grid-item')
+const blockedSquares = document.querySelectorAll('.freeze')
+
 
 const tetromino = [
-  {type: 'I', position: [16, 15, 14, 13], orientation: 0},
-  {type: 'J', position: [13, 14, 15, 25],orientation: 0},
-  {type: 'L', position: [16, 15, 14, 24], orientation: 0},
-  {type: 'T', position: [13, 14, 15, 4], orientation: 0},
-  {type: 'S', position: [6, 5, 15, 14], orientation: 0},
-  {type: 'Z', position: [14, 15, 25, 26], orientation: 0},
-  {type: 'O', position: [4, 5, 14, 15], orientation: 0}
+  {type: 'I', position: [16, 15, 14, 13], orientation: 0, isActive: true},
+  {type: 'J', position: [13, 14, 15, 25],orientation: 0, isActive: true},
+  {type: 'L', position: [16, 15, 14, 24], orientation: 0, isActive: true},
+  {type: 'T', position: [13, 14, 15, 4], orientation: 0, isActive: true},
+  {type: 'S', position: [6, 5, 15, 14], orientation: 0, isActive: true},
+  {type: 'Z', position: [14, 15, 25, 26], orientation: 0, isActive: true},
+  {type: 'O', position: [4, 5, 14, 15], orientation: 0, isActive: true}
 ]
 
 function rotate() {
@@ -137,12 +139,12 @@ function handleKeyDown(e) {
   let playerShouldMove = true
   switch(e.keyCode) {
     case 39:
-      if (activeTetromino.position.every(pos => pos % width < width - 1)) {
+      if (activeTetromino.position.every(pos => pos % width < width - 1) && activeTetromino.position.every(pos => isBlocked(pos + 1) === false)) {
         activeTetromino.position = activeTetromino.position.map(x => x + 1)
       }
       break
     case 37:
-      if (activeTetromino.position.every(pos => pos % width > 0)) {
+      if (activeTetromino.position.every(pos => pos % width > 0) && activeTetromino.position.every(pos => isBlocked(pos - 1) === false)) {
         activeTetromino.position = activeTetromino.position.map(x => x - 1)
       }
       break
@@ -193,7 +195,7 @@ function init() {
 // }
 // }
 function moveDown() {
-  if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit) ) {
+  if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit) && activeTetromino.position.every(pos => isBlocked(pos +10) === false)) {
     activeTetromino.position = activeTetromino.position.map(x => x + 10)
   } else {
     activeTetromino.isActive = false
@@ -202,9 +204,8 @@ function moveDown() {
   }
 
 }
-
 // && square.classList.contains('freeze')
-
+// && activeTetromino.position.every(pos => pos + 1 !== blockedSquares
 
 function freezeTetronimo(t) {
   // clearInterval(drop)
@@ -212,9 +213,6 @@ function freezeTetronimo(t) {
   t.position.forEach(number => squares[number].classList.remove('player'))
   activeTetromino = generateTetromino()
   console.log(activeTetromino)
-
-  // createNewTeronimo()
-
 }
 
 function automaticDrop() {
@@ -224,6 +222,12 @@ function automaticDrop() {
     freezeTetronimo(activeTetromino)
   }
 }
+
+
+function isBlocked(number) {
+  return squares[number].classList.contains('freeze')
+}
+
 
 
 
