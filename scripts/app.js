@@ -6,12 +6,22 @@ const squares = []
 let divIndex = []
 let activeTetromino = {}
 // const isTetronimoActive = false
-const drop = setInterval(automaticDrop, 300)
+const drop = setInterval(automaticDrop, 1000)
 let square = document.querySelector('.grid-item')
 const blockedSquares = document.querySelectorAll('.freeze')
 const blocked = []
-let rows = []
+const rows = []
 
+
+const startPositions = {
+  'I': [16, 15, 14, 13],
+  'J': [13, 14, 15, 25],
+  'L': [16, 15, 14, 24],
+  'T': [13, 14, 15, 4],
+  'S': [6, 5, 15, 14],
+  'Z': [14, 15, 25, 26],
+  'O': [4, 5, 14, 15]
+}
 
 const tetromino = [
   {type: 'I', position: [16, 15, 14, 13], orientation: 0, isActive: true},
@@ -26,21 +36,26 @@ const tetromino = [
 function rotate() {
   activeTetromino.orientation += 90
   // if (activeTetromino.orientation > 270) {
-  //   activeTetromino.orientation = 0
+  //   activeTetromino.orientation = 360
   // }
+
   if (activeTetromino.type === 'J') {
     if (activeTetromino.orientation === 90) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] - 2
     } else if (activeTetromino.orientation === 180) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.orientation === 270) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
-      activeTetromino.position[3] = activeTetromino.position[3] + 0
-    } else if (activeTetromino.orientation === 270) {
-      activeTetromino.position[0] = activeTetromino.position[0] - 9
-      activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] + 2
+    }else if (activeTetromino.type === 'J' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   } else if (activeTetromino.type === 'L') {
     if (activeTetromino.type === 'L' && activeTetromino.orientation === 90) {
@@ -54,7 +69,11 @@ function rotate() {
     } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 270) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 9
-      activeTetromino.position[3] = activeTetromino.position[3] + 0
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
     }
   } else if (activeTetromino.type === 'I') {
     if (activeTetromino.type === 'I' && activeTetromino.orientation === 90) {
@@ -117,25 +136,33 @@ const grid = document.querySelector('.grid')
 //
 // }
 
-
+function resetTetrominos(){
+  tetromino.forEach(t => {
+    t.isActive = true
+    t.position = startPositions[t.type]
+    t.orientation = 0
+  })
+}
 
 
 // const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
 function generateTetromino (){
+  resetTetrominos()
   const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
+  console.log(tetrominoNumber, 'random number')
   console.log('generateTetromino')
 
 
   const newTetronimo = tetromino[tetrominoNumber]
 
-  newTetronimo.isActive = true
-  console.log(newTetronimo)
+  console.log(tetromino.map(t => t.isActive))
+  console.log('new', newTetronimo)
   return newTetronimo
 }
 
 
 function movePlayer() {
-  console.log('movePlayer', activeTetromino)
+  // console.log('movePlayer', activeTetromino)
   // console.log('happening')
   squares.forEach(square => square.classList.remove('player'))
   activeTetromino.position.forEach(number => squares[number].classList.add('player'))
@@ -166,6 +193,7 @@ function handleKeyDown(e) {
       playerShouldMove = false
   }
   if (playerShouldMove) movePlayer()
+
 }
 
 function init() {
@@ -186,12 +214,9 @@ function init() {
     square.id = 'div' + i
   }
 
-
-
   activeTetromino = generateTetromino()
 
   movePlayer()
-  drop
 
 }
 
@@ -202,6 +227,7 @@ function init() {
 // }
 // }
 function moveDown() {
+  console.log(activeTetromino.position.every(pos => isBlocked(pos +10)))
   if (activeTetromino.isActive && activeTetromino.position.every(pos => pos + 10 < limit) && activeTetromino.position.every(pos => isBlocked(pos +10) === false)) {
     activeTetromino.position = activeTetromino.position.map(x => x + 10)
   } else {
@@ -219,7 +245,7 @@ function freezeTetronimo(t) {
   t.position.forEach(number => squares[number].classList.add('freeze'))
   t.position.forEach(number => squares[number].classList.remove('player'))
   activeTetromino = generateTetromino()
-  console.log(activeTetromino)
+  console.log('freezeTetromino', activeTetromino)
 }
 
 function automaticDrop() {
@@ -232,7 +258,9 @@ function automaticDrop() {
 
 
 function isBlocked(number) {
-  return squares[number].classList.contains('freeze')
+  if (squares[number]){
+    return squares[number].classList.contains('freeze')
+  }
 }
 
 
@@ -241,6 +269,7 @@ function makeRows () {
     rows[i] = []
     for (let j = 0; j < width; j++) {
       rows[i].push( (i*width) + j )
+      console.log(rows)
 
     }
   }
@@ -248,24 +277,34 @@ function makeRows () {
 makeRows()
 
 //
-/
-
 //
-function toClear()  {
-  for (let i = 0; i < rows.length;i++){
-    const value = rows[i];
+// function toClear()  {
+//   for (let i = 0; i < rows.length; i++){
+//     const value = rows[i];
+//
+//     for(j = 0; j <rows[i].length; j++){
+//       const innerValue = rows[i][j]
+//       rows.every(pos => isBlocked(pos) === true)
+//
+//       console.log(rows[i][j] )
+//
+//
+//     }
+//
+//   }
+// }
+//
+// function toClear() {
+//   // const count = rows.length
+//   for (let i = 0; i < rows.length;  i++)
+//   if (rows[i]){
+//     return rows[i].classList.contains('freeze')
+//     console.log('works')
+//   }
+// }
 
-    for(j = 0; j <rows[i].length; j++){
-      var innerValue = rows[i][j]
 
-      console.log(rows[i][j] )
-
-
-    }
-}
-}
-
-toClear()
+// }
 
 
 
@@ -277,16 +316,11 @@ toClear()
 //
 //       square.classList.remove('freeze')
 //
-//
 //     }
 //   }
 //
 //
 // }
-
-
-
-
 
 // function clearRow (number) {
 //   for (let i = 0; i <= width; i++) {
