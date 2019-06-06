@@ -12,6 +12,7 @@ const blocked = []
 const rows = []
 let blockedSquares = null
 
+
 window.addEventListener('DOMContentLoaded', () => {
 
   const audio = document.querySelector('#audio')
@@ -261,19 +262,31 @@ function resetTetrominos(){
 
 
 // const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
+
+
 function generateTetromino (){
+  gameOver()
   resetTetrominos()
-  const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
-  console.log(tetrominoNumber, 'random number')
-  console.log('generateTetromino')
+  if (activeTetromino.isActive && activeTetromino.position.every(pos => isBlocked(pos + 10) === true)) {
+    return
+  }
+
+    const tetrominoNumber = Math.floor(Math.random() * tetromino.length)
+    console.log(tetrominoNumber, 'random number')
+    console.log('generateTetromino')
 
 
-  const newTetronimo = tetromino[tetrominoNumber]
+    const newTetronimo = tetromino[tetrominoNumber]
 
-  console.log(tetromino.map(t => t.isActive))
-  console.log('new', newTetronimo)
-  return newTetronimo
-}
+    console.log(tetromino.map(t => t.isActive))
+    console.log('new', newTetronimo)
+    return newTetronimo
+
+
+  }
+
+
+
 
 
 function movePlayer() {
@@ -331,6 +344,7 @@ function init() {
 
   makeRows()
 
+
   activeTetromino = generateTetromino()
 
   movePlayer()
@@ -355,7 +369,10 @@ function moveDown() {
     return
   }
   checkRows()
+
 }
+
+
 // && square.classList.contains('freeze')
 // && activeTetromino.position.every(pos => pos + 1 !== blockedSquares
 
@@ -381,17 +398,7 @@ function isBlocked(number) {
     return squares[number].classList.contains('freeze')
   }
 }
-//
-//   function topBorder() {
-//     for (let i = squares.length+1; i < 0; i--) {
-//       const position = playerIndexes[i]
-//       if (position - width < 0) {
-//         //console.log('cant go up')
-//         return false
-//       }
-//     }
-//     return true
-//   }
+
 
 function makeRows () {
   for (let i = 0; i < height; i++) {
@@ -414,6 +421,24 @@ function checkRows() {
       rows[i].every(item => item.map(x => x + 10))
 
     }
+  }
+}
+
+// function gameOver () {
+//   if ((activeTetromino.isActive === false || activeTetromino.isActive === true
+//   && activeTetromino.position.forEach(pos => pos - 1 < 9)) ){
+//     console.log('gameover')
+//   } else {
+//     console.log('fine')
+//   }
+//
+// }
+
+function  gameOver() {
+  if (div1.classList.contains('freeze') || div2.classList.contains('freeze') || div3.classList.contains('freeze') || div4.classList.contains('freeze') ||div0.classList.contains('freeze') || div5.classList.contains('freeze') || div6.classList.contains('freeze') || div7.classList.contains('freeze') || div8.classList.contains('freeze') || div8.classList.contains('freeze')|| div13.classList.contains('freeze') || div14.classList.contains('freeze') ||div10.classList.contains('freeze') || div15.classList.contains('freeze') || div16.classList.contains('freeze') || div17.classList.contains('freeze')) {
+
+    alert('Sorry mate!')
+
   }
 }
 

@@ -6,9 +6,9 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-image: url(https://images.theconversation.com/files/60944/original/gv3w7mmk-1412620171.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip);
+  background-image: url("https://images.theconversation.com/files/60944/original/gv3w7mmk-1412620171.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
   background-repeat: no-repeat;
-    background-size: cover;
+  background-size: cover;
 }
 header {
   display: flex;
@@ -65,11 +65,15 @@ div.grid-item {
 
  button {
    display: flex;
-   background-color: #EC9B4E;
-   color: #32120E;
-   border-radius: 8px;
+   background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
+   color: #582C11;
+   border: 2px solid white;
    margin-left: 5%;
-   font-size: 10px;
+   font-size: 20px;
+   font-family: 'Titillium Web', sans-serif;
+   font-style: italic;
+   position: relative;
+
 
 
  }
