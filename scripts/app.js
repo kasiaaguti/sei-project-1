@@ -7,7 +7,7 @@ let divIndex = []
 let activeTetromino = {}
 // const isTetronimoActive = false
 const drop = setInterval(automaticDrop, 1000)
-let square = document.querySelector('.grid-item')
+const square = document.querySelectorAll('.grid-item')
 const blockedSquares = document.querySelectorAll('.freeze')
 const blocked = []
 const rows = []
@@ -33,12 +33,11 @@ const tetromino = [
   {type: 'O', position: [4, 5, 14, 15], orientation: 0, isActive: true}
 ]
 
-function rotate() {
+function rotate(t) {
   activeTetromino.orientation += 90
-  // if (activeTetromino.orientation > 270) {
-  //   activeTetromino.orientation = 360
-  // }
-
+  if (activeTetromino.orientation > 360) {
+    activeTetromino.orientation = startPositions[t.type]
+  }
   if (activeTetromino.type === 'J') {
     if (activeTetromino.orientation === 90) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
@@ -52,7 +51,7 @@ function rotate() {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] + 2
-    }else if (activeTetromino.type === 'J' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'J' && activeTetromino.orientation === 360) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 20
@@ -84,6 +83,14 @@ function rotate() {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 22
+    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 270) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 22
+    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 22
     }
   } else if (activeTetromino.type === 'T') {
     if (activeTetromino.type === 'T' && activeTetromino.orientation === 90) {
@@ -98,6 +105,10 @@ function rotate() {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] - 11
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 9
     }
   } else if (activeTetromino.type === 'Z') {
     if (activeTetromino.type === 'Z' && activeTetromino.orientation === 90) {
@@ -112,6 +123,10 @@ function rotate() {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   }else if (activeTetromino.type === 'S') {
     if (activeTetromino.type === 'S' && activeTetromino.orientation === 90) {
@@ -126,6 +141,10 @@ function rotate() {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 360) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   }
 }
@@ -264,17 +283,17 @@ function isBlocked(number) {
 }
 
 
-function makeRows () {
-  for (let i = 0; i < height; i++) {
-    rows[i] = []
-    for (let j = 0; j < width; j++) {
-      rows[i].push( (i*width) + j )
-      console.log(rows)
-
-    }
-  }
-}
-makeRows()
+// function makeRows () {
+//   for (let i = 0; i < height; i++) {
+//     rows[i] = []
+//     for (let j = 0; j < width; j++) {
+//       rows[i].push( (i*width) + j )
+//       console.log(rows)
+//
+//     }
+//   }
+// }
+// makeRows()
 
 //
 //
@@ -330,6 +349,24 @@ makeRows()
 //   }
 // }
 //
+
+
+
+// 
+// function makeRows() {
+//   for (let i = 0; i < height; i++) {
+//     rows[i] = []
+//     for (let j = 0; j < width; j++) {
+//       rows[i].push( (i*width) + j )
+//       if (square.classList.contains('.freeze') === true)
+//   }
+// }
+//
+
+
+
+// makeRows()
+
 
 
 
