@@ -8,9 +8,21 @@ let activeTetromino = {}
 // const isTetronimoActive = false
 const drop = setInterval(automaticDrop, 1000)
 const square = document.querySelectorAll('.grid-item')
-const blockedSquares = document.querySelectorAll('.freeze')
 const blocked = []
 const rows = []
+let blockedSquares = null
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  const audio = document.querySelector('#audio')
+  const playBtn = document.querySelector('#play')
+
+  playBtn.addEventListener('click',() => {
+    audio.src = 'audio/korobeiniki.mp3'
+
+    audio.play()
+  })
+})
 
 
 const startPositions = {
@@ -34,120 +46,204 @@ const tetromino = [
 ]
 
 function rotate(t) {
-  activeTetromino.orientation += 90
-  if (activeTetromino.orientation > 360) {
-    activeTetromino.orientation = startPositions[t.type]
-  }
+  activeTetromino.orientation += 10
+  // if (activeTetromino.orientation > 360) {
+  //   activeTetromino.orientation = startPositions[t.type]
+  // }
   if (activeTetromino.type === 'J') {
-    if (activeTetromino.orientation === 90) {
+    if (activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] - 2
-    } else if (activeTetromino.orientation === 180) {
+    } else if (activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 20
-    } else if (activeTetromino.orientation === 270) {
+    } else if (activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] + 2
-    } else if (activeTetromino.type === 'J' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'J' && activeTetromino.orientation === 40) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
+    } else if (activeTetromino.orientation === 50) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.orientation === 60) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.orientation === 70) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'J' && activeTetromino.orientation === 80) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   } else if (activeTetromino.type === 'L') {
-    if (activeTetromino.type === 'L' && activeTetromino.orientation === 90) {
+    if (activeTetromino.type === 'L' && activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] - 20
-    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 180) {
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 2
-    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 270) {
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] + 20
-    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 40) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 50) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 60) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 70) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
+    } else if (activeTetromino.type === 'L' && activeTetromino.orientation === 80) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 2
     }
   } else if (activeTetromino.type === 'I') {
-    if (activeTetromino.type === 'I' && activeTetromino.orientation === 90) {
+    if (activeTetromino.type === 'I' && activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 22
-    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 180) {
+    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 22
-    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 270) {
+    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 22
-    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'I' && activeTetromino.orientation === 40) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 22
     }
   } else if (activeTetromino.type === 'T') {
-    if (activeTetromino.type === 'T' && activeTetromino.orientation === 90) {
+    if (activeTetromino.type === 'T' && activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] + 11
-    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 180) {
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] + 9
-    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 270) {
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] - 11
-    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 40) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 9
+    }else if (activeTetromino.type === 'T' && activeTetromino.orientation === 50) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 11
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 60) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 9
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 70) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 11
+    } else if (activeTetromino.type === 'T' && activeTetromino.orientation === 80) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] - 9
     }
   } else if (activeTetromino.type === 'Z') {
-    if (activeTetromino.type === 'Z' && activeTetromino.orientation === 90) {
+    if (activeTetromino.type === 'Z' && activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 2
-    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 180) {
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] - 20
-    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 270) {
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 2
-    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 40) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 50) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 60) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 70) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'Z' && activeTetromino.orientation === 80) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   }else if (activeTetromino.type === 'S') {
-    if (activeTetromino.type === 'S' && activeTetromino.orientation === 90) {
+    if (activeTetromino.type === 'S' && activeTetromino.orientation === 10) {
       activeTetromino.position[0] = activeTetromino.position[0] - 11
       activeTetromino.position[2] = activeTetromino.position[2] - 9
       activeTetromino.position[3] = activeTetromino.position[3] + 2
-    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 180) {
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 20) {
       activeTetromino.position[0] = activeTetromino.position[0] + 9
       activeTetromino.position[2] = activeTetromino.position[2] - 11
       activeTetromino.position[3] = activeTetromino.position[3] - 20
-    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 270) {
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 30) {
       activeTetromino.position[0] = activeTetromino.position[0] + 11
       activeTetromino.position[2] = activeTetromino.position[2] + 9
       activeTetromino.position[3] = activeTetromino.position[3] - 2
-    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 360) {
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 40) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 9
+      activeTetromino.position[2] = activeTetromino.position[2] + 11
+      activeTetromino.position[3] = activeTetromino.position[3] + 20
+    }else if (activeTetromino.type === 'S' && activeTetromino.orientation === 50) {
+      activeTetromino.position[0] = activeTetromino.position[0] - 11
+      activeTetromino.position[2] = activeTetromino.position[2] - 9
+      activeTetromino.position[3] = activeTetromino.position[3] + 2
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 60) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 9
+      activeTetromino.position[2] = activeTetromino.position[2] - 11
+      activeTetromino.position[3] = activeTetromino.position[3] - 20
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 70) {
+      activeTetromino.position[0] = activeTetromino.position[0] + 11
+      activeTetromino.position[2] = activeTetromino.position[2] + 9
+      activeTetromino.position[3] = activeTetromino.position[3] - 2
+    } else if (activeTetromino.type === 'S' && activeTetromino.orientation === 80) {
       activeTetromino.position[0] = activeTetromino.position[0] - 9
       activeTetromino.position[2] = activeTetromino.position[2] + 11
       activeTetromino.position[3] = activeTetromino.position[3] + 20
     }
   }
 }
+
+
+
+
 
 const grid = document.querySelector('.grid')
 
@@ -233,9 +329,13 @@ function init() {
     square.id = 'div' + i
   }
 
+  makeRows()
+
   activeTetromino = generateTetromino()
 
   movePlayer()
+
+  blockedSquares = document.querySelectorAll('.freeze')
 
 }
 
@@ -254,7 +354,7 @@ function moveDown() {
     console.log('activeTetromino set to false')
     return
   }
-
+  checkRows()
 }
 // && square.classList.contains('freeze')
 // && activeTetromino.position.every(pos => pos + 1 !== blockedSquares
@@ -281,91 +381,42 @@ function isBlocked(number) {
     return squares[number].classList.contains('freeze')
   }
 }
-
-
-// function makeRows () {
-//   for (let i = 0; i < height; i++) {
-//     rows[i] = []
-//     for (let j = 0; j < width; j++) {
-//       rows[i].push( (i*width) + j )
-//       console.log(rows)
 //
+//   function topBorder() {
+//     for (let i = squares.length+1; i < 0; i--) {
+//       const position = playerIndexes[i]
+//       if (position - width < 0) {
+//         //console.log('cant go up')
+//         return false
+//       }
 //     }
+//     return true
 //   }
-// }
-// makeRows()
 
-//
-//
-// function toClear()  {
-//   for (let i = 0; i < rows.length; i++){
-//     const value = rows[i];
-//
-//     for(j = 0; j <rows[i].length; j++){
-//       const innerValue = rows[i][j]
-//       rows.every(pos => isBlocked(pos) === true)
-//
-//       console.log(rows[i][j] )
-//
-//
-//     }
-//
-//   }
-// }
-//
-// function toClear() {
-//   // const count = rows.length
-//   for (let i = 0; i < rows.length;  i++)
-//   if (rows[i]){
-//     return rows[i].classList.contains('freeze')
-//     console.log('works')
-//   }
-// }
-
-
-// }
+function makeRows () {
+  for (let i = 0; i < height; i++) {
+    rows[i] = []
+    for (let j = 0; j < width; j++) {
+      rows[i].push(squares[(i * width) + j])
+    }
+  }
+  console.log(rows)
+}
 
 
 
+function checkRows() {
+  for(let i = 0; i < rows.length; i++){
+    const row = rows[i].every(item => item.classList.contains('freeze'))
+    if (row) {
+      console.log(`Row ${i} is full`)
+      rows[i].forEach(item => item.classList.remove('freeze'))
+      rows[i].every(item => item.map(x => x + 10))
 
+    }
+  }
+}
 
-// function clearLine () {
-//   for (let i = 200 i > 0 ; i--) {
-//     if () {
-//
-//       square.classList.remove('freeze')
-//
-//     }
-//   }
-//
-//
-// }
-
-// function clearRow (number) {
-//   for (let i = 0; i <= width; i++) {
-//     return squares[number].classList.contains('freeze')
-//     if (activeTetromino.position.every(pos => isBlocked(pos) === true))
-//       t.position.forEach(number => squares[number].classList.remove('freeze'))
-//   }
-// }
-//
-
-
-
-// 
-// function makeRows() {
-//   for (let i = 0; i < height; i++) {
-//     rows[i] = []
-//     for (let j = 0; j < width; j++) {
-//       rows[i].push( (i*width) + j )
-//       if (square.classList.contains('.freeze') === true)
-//   }
-// }
-//
-
-
-
-// makeRows()
 
 
 

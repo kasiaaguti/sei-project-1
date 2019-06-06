@@ -35,6 +35,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 div.grid {
@@ -46,28 +47,34 @@ div.grid {
 
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-}
 
 div.grid-item {
   width: calc(300px / 10);
   height: calc(450px / 15);
-  border: 1px solid black;
+  border: 1px solid grey;
 }
 
 .player {
-  background-color: red;
+  background-color: #EC9B4E;
   background-repeat: no-repeat;
   background-size: contain;
   display: inline-block;
 
  }
+
+ button {
+   display: flex;
+   background-color: #EC9B4E;
+   color: #32120E;
+   border-radius: 8px;
+   margin-left: 5%;
+   font-size: 10px;
+
+
+ }
 .freeze {
-   background-color: blue;
+   background-color: #378DBC;
    background-repeat: no-repeat;
    background-size: contain;
    display: inline-block;
