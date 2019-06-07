@@ -288,8 +288,6 @@ function generateTetromino (){
 
 
 
-
-
 function movePlayer() {
   // console.log('movePlayer', activeTetromino)
   // console.log('happening')
@@ -415,37 +413,33 @@ function makeRows () {
 }
 
 
+let score = 0
 
 function checkRows() {
   for(let i = 0; i < rows.length; i++){
     const row = rows[i].every(item => item.classList.contains('freeze'))
-    let score = 0
     const scoreDisplay = document.querySelector('.score')
     if (row) {
       console.log(`Row ${i} is full`)
       console.log('add point')
       rows[i].forEach(item => item.classList.remove('freeze'))
-      for (i = 1; i <  rows.length; i++) {
-        // score =+ 1
-        scoreDisplay.innerHTML = score + 1
-
-      }
-
+      score += 10
+      scoreDisplay.innerHTML = score
 
     }
   }
-
-// score()
+// moveRowsDown()
 }
 
-// function score () {
-//   for(let i = 0; i < 100; i++){
-//     let score = 0
-//     const scoreDisplay = document.querySelector('.score')
-//     console.log(+score)
-//     score += 10
-//     scoreDisplay.innerHTML = score
+//
+// function moveRowsDown() {
+//
+//   blockedSquares = document.querySelectorAll('.freeze')
+//       square.classList.remove('freeze')
+//       squares[blockedSquares+width)].classList.add('freeze')
+//     }
 //   }
+
 // }
 
 
