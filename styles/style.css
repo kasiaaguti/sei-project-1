@@ -65,10 +65,13 @@ div.grid-item {
 
  button {
    display: flex;
+   height: 4%;
+   width: 7%;
    background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
    color: #582C11;
    border: 2px solid white;
    margin-left: 5%;
+   margin-bottom: 2%;
    font-size: 20px;
    font-family: 'Titillium Web', sans-serif;
    font-style: italic;
@@ -76,7 +79,26 @@ div.grid-item {
 
 
 
+
  }
+
+ .score {
+    display: flex;
+    height: 4%;
+    width: 7%;
+    margin-left: 5%;
+    border: 2px solid white;
+    background-image: -webkit-linear-gradient(#378DBC 0%, #B6E8F1 46%, #ffffff 50%, #32120E 54%, #FFC488 58%, #582C11 90%, #EC9B4E 100%);
+    color: #582C11;
+    font-size: 20px;
+    font-family: 'Titillium Web', sans-serif;
+    font-style: italic;
+    position: relative;
+
+     }
+
+
+
 .freeze {
    background-color: #378DBC;
    background-repeat: no-repeat;

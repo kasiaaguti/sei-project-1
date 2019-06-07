@@ -13,6 +13,7 @@ const rows = []
 let blockedSquares = null
 
 
+
 window.addEventListener('DOMContentLoaded', () => {
 
   const audio = document.querySelector('#audio')
@@ -342,6 +343,7 @@ function init() {
     square.id = 'div' + i
   }
 
+
   makeRows()
 
 
@@ -368,7 +370,9 @@ function moveDown() {
     console.log('activeTetromino set to false')
     return
   }
+
   checkRows()
+
 
 }
 
@@ -415,32 +419,44 @@ function makeRows () {
 function checkRows() {
   for(let i = 0; i < rows.length; i++){
     const row = rows[i].every(item => item.classList.contains('freeze'))
+    let score = 0
+    const scoreDisplay = document.querySelector('.score')
     if (row) {
       console.log(`Row ${i} is full`)
+      console.log('add point')
       rows[i].forEach(item => item.classList.remove('freeze'))
-      rows[i].every(item => item.map(x => x + 10))
+      for (i = 1; i <  rows.length; i++) {
+        // score =+ 1
+        scoreDisplay.innerHTML = score + 1
+
+      }
+
 
     }
   }
+
+// score()
 }
 
-// function gameOver () {
-//   if ((activeTetromino.isActive === false || activeTetromino.isActive === true
-//   && activeTetromino.position.forEach(pos => pos - 1 < 9)) ){
-//     console.log('gameover')
-//   } else {
-//     console.log('fine')
+// function score () {
+//   for(let i = 0; i < 100; i++){
+//     let score = 0
+//     const scoreDisplay = document.querySelector('.score')
+//     console.log(+score)
+//     score += 10
+//     scoreDisplay.innerHTML = score
 //   }
-//
 // }
 
-function  gameOver() {
-  if (div1.classList.contains('freeze') || div2.classList.contains('freeze') || div3.classList.contains('freeze') || div4.classList.contains('freeze') ||div0.classList.contains('freeze') || div5.classList.contains('freeze') || div6.classList.contains('freeze') || div7.classList.contains('freeze') || div8.classList.contains('freeze') || div8.classList.contains('freeze')|| div13.classList.contains('freeze') || div14.classList.contains('freeze') ||div10.classList.contains('freeze') || div15.classList.contains('freeze') || div16.classList.contains('freeze') || div17.classList.contains('freeze')) {
 
-    alert('Sorry mate!')
+function  gameOver() {
+  if (div1.classList.contains('freeze') || div2.classList.contains('freeze') || div3.classList.contains('freeze') || div4.classList.contains('freeze') ||div0.classList.contains('freeze') || div5.classList.contains('freeze') || div6.classList.contains('freeze') || div7.classList.contains('freeze') || div8.classList.contains('freeze') || div9.classList.contains('freeze')|| div10.classList.contains('freeze') ) {
+
+    alert('Game over')
 
   }
 }
+
 
 
 
