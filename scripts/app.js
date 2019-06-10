@@ -335,7 +335,7 @@ function init() {
   for (let i = 0 ; i < width * height; i++) {
     const square = document.createElement('div')
     square.classList.add('grid-item')
-    square.innerHTML = i
+    // square.innerHTML = i
     squares.push(square)
     grid.append(square)
     square.id = 'div' + i
@@ -433,14 +433,17 @@ function checkRows() {
 
 //
 // function moveRowsDown() {
+//   for(let i = 0; i < rows.length; i++){
+//     const row = rows[i].every(item => item.classList.contains('freeze'))
+//     if (row) {
+//      rows[i + width].forEach(item => item.classList.add('freeze'))
 //
-//   blockedSquares = document.querySelectorAll('.freeze')
-//       square.classList.remove('freeze')
-//       squares[blockedSquares+width)].classList.add('freeze')
+//
 //     }
 //   }
-
 // }
+
+
 
 
 function  gameOver() {
