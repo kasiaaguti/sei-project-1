@@ -7,8 +7,6 @@ This is my first project during the General Assembly Software Engineering Immers
 -
 # TETRIS
 ​
-This project is a job board, built using Github Jobs API (https://jobs.github.com/api).
-
 ## Timeframe & Team
 ​
 7 days, solo
@@ -17,16 +15,13 @@ This project is a job board, built using Github Jobs API (https://jobs.github.co
 ​
 HTML5
 CSS3
-JavaScript - ECMAScript6
-Animate.css
-SCSS
-Flexbox
+JavaScript - ECMAScript
 Git
 GitHub
 ​
-## Deployment
+## Play
 ​
-It can be found here: kasiaaguti.github.io/sei-project-1/
+It can be found here: https://kasiaaguti.github.io/sei-project-1/
 ​
 ## Logic
 ​
