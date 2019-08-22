@@ -16,9 +16,17 @@ Design a game that works in the user's browser. Players must be able to win and 
 ​
 7 days, solo
 ​​
-## Play
+## Play it
 ​
 It can be found here: https://kasiaaguti.github.io/sei-project-1/
+
+## Technologies Used
+| Category | List |
+| ---- | --- |
+| Languages                            | JavaScript (ECMAScript6), CSS3, HTML5 |
+| Text Editor                          | Atom |
+| Browser                              | Chrome |
+| Version control | Git and GitHub
 ​
 ## Concept
 ​
@@ -112,15 +120,6 @@ function freezeTetronimo(t) {
   console.log('freezeTetromino', activeTetromino)
 }
 ```
-
-## Technologies Used
-| Category | List |
-| ---- | --- |
-| Languages                            | JavaScript (ECMAScript6), CSS3, HTML5 |
-| Text Editor                          | Atom |
-| Browser                              | Chrome |
-| Version control | Git and GitHub
-
 
 ## Challenges
 
