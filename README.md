@@ -62,7 +62,7 @@ function rotate(t) {
     }
   ```  
 
-** First element renders and moves**
+** First element renders and moves **
 <br />
 <img src="/images/oneelement.jpeg" width="500">
 
