@@ -76,7 +76,7 @@ function rotate(t) {
 
 <img src="/images/oneelement.jpeg" width="500">
 
-## Visuals of finished game
+## Visuals of the finished game
 
 **This is my MVP**
 
