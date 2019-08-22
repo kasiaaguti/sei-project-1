@@ -3,8 +3,7 @@
 ​
 # TETRIS
 ​
--
-# General Assembly Software Engineering Immersive: Project 1
+# General Assembly – Project 1
 
 This is my first project during the General Assembly Software Engineering Immersive course (Week 3). ​
 
