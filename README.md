@@ -35,7 +35,7 @@ Build an initial fully functional game. Practice how to think like a developer b
 ## Process
 
 **Working on rotation**
-<img src="/images/rotation.jpeg" width="900">
+<img src="/images/rotation.jpeg" width="500">
 
 ```
 function rotate(t) {
@@ -59,15 +59,15 @@ function rotate(t) {
     }
   ```  
 
-**First element renders and moves**
-<img src="/images/onelemet.jpeg" width="900">
+** First element renders and moves**
+<img src="/images/oneelemet.jpeg" width="500">
 
 
 
-** Visuals of finished game
+## Visuals of finished game 
 
 **This is my MVP**
-<img src="/images/mvp.png" width="900">
+<img src="/images/mvp.png" width="500">
 
 **Generating a new Tetromino**
 ```
