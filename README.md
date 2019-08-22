@@ -63,10 +63,10 @@ function rotate(t) {
   ```  
 
 **First element renders and moves**
+
 <br />
+
 <img src="/images/oneelement.jpeg" width="500">
-
-
 
 ## Visuals of finished game
 
@@ -112,7 +112,6 @@ function freezeTetronimo(t) {
   console.log('freezeTetromino', activeTetromino)
 }
 ```
-
 
 ## Technologies Used
 | Category | List |
