@@ -313,7 +313,7 @@ function handleKeyDown(e) {
     case 40:
       moveDown()
       break
-    case 82:
+    case 38:
       rotate()
       break
     default:
