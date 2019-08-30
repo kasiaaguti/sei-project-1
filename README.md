@@ -35,9 +35,6 @@ The player can move the Tetriminos left and right and rotate them clockwise in 9
 
 The aim of the game is to get as many points as possible before the game board is filled with Tetriminos.
 
-## Goal
-
-Build an initial fully functional game. Practice how to think like a developer based on what we learned in week 1-3 of the course. Even things that seem simple now: How do I create create and move elements? How do I make them drop automatically without pressing the key?
 
 ## Process
 
@@ -127,6 +124,14 @@ The larges challenge was the rotation of the Tetriminos. Each one rotates around
 Also some Tetriminos, particularly the long bar, create problems issues when turning next to the walls of the game board.
 
 Furthermore, once a line has been made, the blocks above have to all shift down a row to fill the space, which requires a good amount of recursion.
+
+## Wins
+
+Built a fully functional game.
+
+## Key learnings
+
+Practiced how to think like a developer based on what we learned in week 1-3 of the course. Even things that seem simple now: How do I create create and move elements? How do I make them drop automatically without pressing the key?
 
 ## Moving Forward
 
